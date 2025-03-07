@@ -5,6 +5,7 @@ import { LoginComponent } from "./pages/auth/login/login.component"
 import { SignupComponent } from "./pages/auth/signup/signup.component"
 import { CompanyPageComponent } from "./pages/company-page/company-page.component"
 import { JobDetailsComponent } from "./pages/job-details/job-details.component"
+import { CompaniesComponent } from './pages/companies/companies.component';
 
 export const routes: Routes = [
   {
@@ -18,6 +19,9 @@ export const routes: Routes = [
   {
     path: "signup",
     component: SignupComponent
+  },
+  { path: "companies",
+     component: CompaniesComponent
   },
   {
     path: "company/:id",
