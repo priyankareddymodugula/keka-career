@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { AuthService } from "../../../services/auth.service"
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-login",
@@ -125,13 +126,14 @@ export class LoginComponent {
   password = ""
   rememberMe = false
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,private router: Router) {
   }
 
   login(): void {
     this.authService.login(this.email, this.password, this.rememberMe).subscribe(
       (success) => {
         // Handle successful login
+        this.router.navigate(['/dashboard']);
         console.log("Login successful")
       },
       (error) => {

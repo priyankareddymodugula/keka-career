@@ -13,8 +13,8 @@ import { Component } from "@angular/core"
         </div>
         <nav class="hidden md:flex items-center space-x-6">
           <a routerLink="/" class="text-gray-700 hover:text-primary font-medium">Home</a>
-          <a routerLink="/jobs" class="text-gray-700 hover:text-primary font-medium">Jobs</a>
-          <a routerLink="/companies" class="text-gray-700 hover:text-primary font-medium">Companies</a>
+          <!-- <a routerLink="/jobs" class="text-gray-700 hover:text-primary font-medium">Jobs</a> -->
+          <!-- <a routerLink="/companies" class="text-gray-700 hover:text-primary font-medium">Companies</a> -->
           <a routerLink="/about" class="text-gray-700 hover:text-primary font-medium">About</a>
         </nav>
         <div class="flex items-center space-x-4">
