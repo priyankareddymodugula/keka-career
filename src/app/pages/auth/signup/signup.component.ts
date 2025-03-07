@@ -17,7 +17,7 @@ import { AuthService } from "../../../services/auth.service"
         </div>
         <form class="mt-8 space-y-6" (ngSubmit)="signup()">
           <div class="rounded-md shadow-sm -space-y-px">
-            <div>
+            <div class="mb-3">
               <label for="name" class="sr-only">Full name</label>
               <input
                 id="name"
@@ -29,7 +29,7 @@ import { AuthService } from "../../../services/auth.service"
                 placeholder="Full name"
               />
             </div>
-            <div>
+            <div style="margin-bottom: 12px">
               <label for="email-address" class="sr-only">Email address</label>
               <input
                 id="email-address"
@@ -41,7 +41,7 @@ import { AuthService } from "../../../services/auth.service"
                 placeholder="Email address"
               />
             </div>
-            <div>
+            <div style="margin-bottom: 12px">
               <label for="password" class="sr-only">Password</label>
               <input
                 id="password"
@@ -53,7 +53,7 @@ import { AuthService } from "../../../services/auth.service"
                 placeholder="Password"
               />
             </div>
-            <div>
+            <div >
               <label for="confirm-password" class="sr-only">Confirm Password</label>
               <input
                 id="confirm-password"
@@ -67,27 +67,11 @@ import { AuthService } from "../../../services/auth.service"
             </div>
           </div>
 
-          <div class="flex items-center">
-            <input
-              id="terms"
-              name="terms"
-              type="checkbox"
-              [(ngModel)]="agreeToTerms"
-              required
-              class="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
-            />
-            <label for="terms" class="ml-2 block text-sm text-gray-900">
-              I agree to the
-              <a href="#" class="text-primary hover:text-primary-dark">Terms of Service</a>
-              and
-              <a href="#" class="text-primary hover:text-primary-dark">Privacy Policy</a>
-            </label>
-          </div>
+
 
           <div>
             <button
               type="submit"
-              [disabled]="!agreeToTerms"
               class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
             >
               Create Account

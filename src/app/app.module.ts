@@ -27,7 +27,8 @@ import { SkillsComponent } from './pages/candidate-dashboard/profile/skills.comp
 import { CandidateDashboardComponent } from './pages/candidate-dashboard/candidate-dashboard.component';
 import { DashboardHomeComponent } from './pages/candidate-dashboard/dashboard-home.component';
 import { DashboardLayoutComponent } from './pages/candidate-dashboard/dashboard-layout.component';
-import { DashboardSidebarComponent } from './pages/candidate-dashboard/dashboard-sidebar.component';
+import { DashboardNavbarComponent } from './pages/candidate-dashboard/dashboard-sidebar.component';
+import { HomeComponent } from './pages/Home/home.component';
 
 @NgModule({
   declarations: [
@@ -51,10 +52,11 @@ import { DashboardSidebarComponent } from './pages/candidate-dashboard/dashboard
     ProfileComponent,
     SkillsComponent,
     ResumeComponent,
-    DashboardSidebarComponent,
+    DashboardNavbarComponent,
     DashboardLayoutComponent,
     DashboardHomeComponent,
-    CandidateDashboardComponent
+    CandidateDashboardComponent,
+    HomeComponent
   ],
   imports: [BrowserModule, CommonModule, FormsModule, AppRoutingModule],
   bootstrap: [AppComponent],

@@ -18,7 +18,7 @@ import { Router } from "@angular/router";
         </div>
         <form class="mt-8 space-y-6" (ngSubmit)="login()">
           <div class="rounded-md shadow-sm -space-y-px">
-            <div>
+            <div class="mb-3">
               <label for="email-address" class="sr-only">Email address</label>
               <input
                 id="email-address"

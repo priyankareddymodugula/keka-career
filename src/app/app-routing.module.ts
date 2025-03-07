@@ -6,28 +6,37 @@ import { LoginComponent } from "./pages/auth/login/login.component"
 import { SignupComponent } from "./pages/auth/signup/signup.component"
 import { CompanyPageComponent } from "./pages/company-page/company-page.component"
 import { JobDetailsComponent } from "./pages/job-details/job-details.component"
-import { CandidateDashboardComponent } from './pages/candidate-dashboard/candidate-dashboard.component';
 import { OpportunitiesComponent } from './pages/candidate-dashboard/opportunities/opportunities.component';
 import { ProfileComponent } from './pages/candidate-dashboard/profile/profile.component';
 import { AuthGuard } from './guard/auth.guard';
 import { CompaniesComponent } from './pages/companies/companies.component';
+import { DashboardLayoutComponent } from './pages/candidate-dashboard/dashboard-layout.component';
+import { HomeComponent } from './pages/Home/home.component';
+import { DashboardHomeComponent } from './pages/candidate-dashboard/dashboard-home.component';
 
 export const routes: Routes = [
   {
-    path: "",
-  component: SearchPageComponent
+    path: "home",
+  component: HomeComponent,
+  canActivate: [AuthGuard],
+  children:[ {
+    path:'search',
+    component: SearchPageComponent,
   },
-  {
+     {
     path: "login",
     component:LoginComponent
   },
   {
     path: "signup",
     component: SignupComponent
+  },{ path: "companies",
+    component: CompaniesComponent,
+ },]
+
   },
-  { path: "companies",
-     component: CompaniesComponent,
-  },
+
+
   {
     path: "company/:id",
     component: CompanyPageComponent
@@ -39,13 +48,12 @@ export const routes: Routes = [
 
   {
     path: "dashboard",
-    component: CandidateDashboardComponent,
+    component: DashboardLayoutComponent,
     canActivate: [AuthGuard],
     children: [
       {
         path: "",
-        redirectTo: "profile",
-        pathMatch: "full",
+        component: DashboardHomeComponent,
       },
       {
         path: "profile",
