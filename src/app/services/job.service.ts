@@ -66,7 +66,21 @@ export class JobService {
 
     if (filters.experiences && filters.experiences.length > 0) {
       filteredJobs = filteredJobs.filter((job:any) =>
-        filters.experiences.some((exp: string) => job.experience.includes(exp)),
+        filters.experiences.some((exp: string) => {
+
+            const [filterMinYear, filterMaxYear] = exp.includes("+")
+            ? [Number(exp.split("+")[0]), Number.MAX_VALUE]
+            : exp.split("year")[0].split("-").map(Number);
+
+            const [jobMinYear, jobMaxYear] = job.experience.includes("+")
+            ? [Number(job.experience.split("+")[0]), Number.MAX_VALUE]
+            : job.experience.split("year")[0].split("-").map(Number);
+            return (
+            (jobMinYear > filterMinYear && jobMinYear < filterMaxYear) ||
+            (jobMaxYear > filterMinYear && jobMaxYear < filterMaxYear) ||
+            (jobMinYear < filterMinYear && jobMaxYear > filterMaxYear)
+            );
+        }),
       )
     }
 
