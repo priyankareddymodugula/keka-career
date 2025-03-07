@@ -17,21 +17,31 @@ import { JobDetailsComponent } from './pages/job-details/job-details.component';
 import { CompanyPageComponent } from './pages/company-page/company-page.component';
 import { JobCardComponent } from './components/job-card/job-card.component';
 import { FeaturedCompaniesComponent } from './components/featured-companies/featured-companies.component';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    FeaturedCompaniesComponent,JobCardComponent,  AppComponent,HeaderComponent,FooterComponent,SearchPageComponent,SearchFiltersComponent,LoginComponent,SignupComponent,JobDetailsComponent,CompanyPageComponent
+    FeaturedCompaniesComponent,
+    JobCardComponent,
+    AppComponent,
+    HeaderComponent,
+    FooterComponent,
+    SearchPageComponent,
+    SearchFiltersComponent,
+    LoginComponent,
+    SignupComponent,
+    JobDetailsComponent,
+    CompanyPageComponent
   ],
   imports: [
     BrowserModule,
     CommonModule,
     FormsModule,
-    AppRoutingModule
-
-
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [AuthService,CompanyService,HttpClient],
+  providers: [AuthService, CompanyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
