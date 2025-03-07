@@ -6,9 +6,9 @@ import { Component } from "@angular/core"
     <header class="bg-white shadow-md">
       <div class="container mx-auto px-4 py-3 flex items-center justify-between">
         <div class="flex items-center">
-          <a routerLink="/" class="flex items-center">
-            <img src="/assets/keka-logo.svg" alt="Keka" class="h-10 w-auto" />
-            <span class="ml-2 text-xl font-bold text-primary">Career Portal</span>
+          <a routerLink="/" class="flex items-center">            
+            <!-- <img src="https://cdn.kekastatic.net/shared/branding/logo/keka-logo-light.svg" alt="Keka" class="h-10 w-auto" /> -->
+            <span class="ml-2 text-xl font-bold text-primary">Keka Career Portal</span>
           </a>
         </div>
         <nav class="hidden md:flex items-center space-x-6">
