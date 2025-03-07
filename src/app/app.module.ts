@@ -15,6 +15,7 @@ import { JobDetailsComponent } from './pages/job-details/job-details.component';
 import { CompanyPageComponent } from './pages/company-page/company-page.component';
 import { JobCardComponent } from './components/job-card/job-card.component';
 import { FeaturedCompaniesComponent } from './components/featured-companies/featured-companies.component';
+import { HttpClientModule } from '@angular/common/http';
 import { MatchScoreComponent } from './components/match-score/match-score.component';
 import { OpportunitiesComponent } from './pages/candidate-dashboard/opportunities/opportunities.component';
 import { EducationComponent } from './pages/candidate-dashboard/profile/education.component';
@@ -29,6 +30,8 @@ import { DashboardHomeComponent } from './pages/candidate-dashboard/dashboard-ho
 import { DashboardLayoutComponent } from './pages/candidate-dashboard/dashboard-layout.component';
 import { DashboardNavbarComponent } from './pages/candidate-dashboard/dashboard-sidebar.component';
 import { HomeComponent } from './pages/Home/home.component';
+import { AuthService } from './services/auth.service';
+import { CompanyService } from './services/company.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +61,14 @@ import { HomeComponent } from './pages/Home/home.component';
     CandidateDashboardComponent,
     HomeComponent
   ],
-  imports: [BrowserModule, CommonModule, FormsModule, AppRoutingModule],
-  bootstrap: [AppComponent],
+  imports: [
+    BrowserModule,
+    CommonModule,
+    FormsModule,
+    AppRoutingModule,
+    HttpClientModule
+  ],
+  providers: [AuthService, CompanyService],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}
