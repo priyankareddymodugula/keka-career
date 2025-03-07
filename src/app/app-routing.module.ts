@@ -10,6 +10,7 @@ import { CandidateDashboardComponent } from './pages/candidate-dashboard/candida
 import { OpportunitiesComponent } from './pages/candidate-dashboard/opportunities/opportunities.component';
 import { ProfileComponent } from './pages/candidate-dashboard/profile/profile.component';
 import { AuthGuard } from './guard/auth.guard';
+import { CompaniesComponent } from './pages/companies/companies.component';
 
 export const routes: Routes = [
   {
@@ -23,6 +24,9 @@ export const routes: Routes = [
   {
     path: "signup",
     component: SignupComponent
+  },
+  { path: "companies",
+     component: CompaniesComponent,
   },
   {
     path: "company/:id",
