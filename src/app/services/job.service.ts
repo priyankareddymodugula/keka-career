@@ -37,6 +37,12 @@ export class JobService {
     );
   }
 
+  getJobByCompany(companyId: string): Observable<any[]> {
+    return this.getJobs().pipe(
+      map(jobs => jobs.filter(job => job.company.id === companyId))
+    );
+  }
+
   searchJobs(query: string, location: string): Observable<any[]> {
     // In a real app, this would call the API with search parameters
     // return this.http.get<any[]>(`${this.apiUrl}/search?q=${query}&location=${location}`);
@@ -76,7 +82,7 @@ export class JobService {
             ? [Number(job.experience.split("+")[0]), Number.MAX_VALUE]
             : job.experience.split("year")[0].split("-").map(Number);
             return (
-            (jobMinYear > filterMinYear && jobMinYear < filterMaxYear) ||
+            (jobMinYear >= filterMinYear && jobMinYear < filterMaxYear) ||
             (jobMaxYear > filterMinYear && jobMaxYear < filterMaxYear) ||
             (jobMinYear < filterMinYear && jobMaxYear > filterMaxYear)
             );

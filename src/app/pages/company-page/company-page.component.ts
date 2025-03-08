@@ -1,6 +1,7 @@
 import { Component, type OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { CompanyService } from "../../services/company.service"
+import { JobService } from "src/app/services/job.service";
 
 @Component({
   selector: "app-company-page",
@@ -132,6 +133,7 @@ export class CompanyPageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private companyService: CompanyService,
+    private jobService: JobService
   ) {
   }
 
@@ -151,7 +153,7 @@ export class CompanyPageComponent implements OnInit {
   }
 
   loadCompanyJobs(): void {
-    this.companyService.getCompanyJobs(this.companyId).subscribe((data) => {
+    this.jobService.getJobByCompany(this.companyId).subscribe((data) => {
       this.companyJobs = data
     })
   }
