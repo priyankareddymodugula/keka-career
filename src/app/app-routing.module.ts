@@ -20,6 +20,8 @@ import { MatchedCandidatesComponent } from './pages/recruiter-dashboard/matched-
 import { ShortlistedCandidatesComponent } from './pages/recruiter-dashboard/shortlisted/shortlisted-candidates.component';
 import { RecruiterAuthGuard } from './guard/recruiter-auth.guard';
 import { RecruiterDashboardComponent } from './pages/recruiter-dashboard/recruiter-dashboard.component';
+import { ApplicationsComponent } from './pages/candidate-dashboard/Applications/applications.component';
+import { SavedJobsComponent } from './pages/candidate-dashboard/saved-jobs/saved-jobs.candidate.component';
 
 export const routes: Routes = [
   {
@@ -69,9 +71,17 @@ export const routes: Routes = [
         component: ProfileComponent,
       },
       {
+        path: 'applications',
+        component: ApplicationsComponent,
+      },
+      {
         path: 'opportunities',
         component: OpportunitiesComponent,
       },
+      {
+        path: 'saved-jobs',
+        component: SavedJobsComponent,
+      }
     ],
   },
   {

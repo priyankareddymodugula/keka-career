@@ -25,11 +25,38 @@ export class AuthService {
 
   login(email: string, password: string, rememberMe: boolean): Observable<any> {
     // Simulate API call
-    const user = {
-      id: "1",
-      name: "John Doe",
-      email: email,
-      token: "fake-jwt-token",
+    const user =  {
+      "Personal Details": {
+        "Name": "Amit Sharma",
+        "Email": "candidate0@example.com",
+        "Mobile Phone": "6543210987",
+        "Address": "Bangalore, India"
+      },
+      "Professional Details": {
+        "Current Location": "Delhi, India",
+        "Experience": "8-10 years",
+        "Current Role": "Data Analyst",
+        "Current CTC": "₹5,00,000 - ₹8,00,000 per annum",
+        "Current Company": "Amazon",
+        "Current Industry": "E-commerce",
+        "Education Details": "Bachelor's degree in Computer Science",
+        "Skills": [
+          "JavaScript",
+          "React",
+          "Node.js",
+          "MongoDB"
+        ],
+        "Current Notice Period": "15 days",
+        "Social Media": "linkedin.com/in/sneha"
+      },
+      "Job Preference": {
+        "Location": "Bangalore, India",
+        "Expected CTC": "₹12,00,000 - ₹18,00,000 per annum",
+        "Role": "UX Designer",
+        "Industry": "E-commerce",
+        "Work Mode": "Hybrid",
+        "Job Type": "Contract"
+      }
     }
 
     if (rememberMe) {

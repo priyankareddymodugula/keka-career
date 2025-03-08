@@ -20,23 +20,104 @@ export class JobMatchService {
   private simulateJobMatching(user: any): Observable<any[]> {
     // This is a mock implementation. In a real app, this logic would be on the server.
     const mockJobs = [
-      {
+      { postedDate: "2023-03-01",
         id: 1,
-        title: "Frontend Developer",
-        company: "TechCorp",
-        location: "San Francisco, CA",
-        postedDate: "2023-03-01",
+        "Job Profile": "UI/UX Designer",
+        "Name": "Data Scientist - Level 3",
+        "Description": "Job description placeholder.",
+        "Role": "Data Analyst",
+        "Location": "Pune, India",
+        "Work Mode": "Remote",
+        "No of openings": 6,
+        "Job Type": "Full-time",
+        "Department": "Design",
+        "Candidate Preference": {
+          "Skill Set": [
+            "AWS",
+            "Docker",
+            "Kubernetes",
+            "CI/CD"
+          ],
+          "Experience": "10+ years",
+          "Education Details": "MBA or equivalent in Project Management",
+          "Notice Period": "60 days",
+          "Salary Range": "\u20b920,00,000 - \u20b930,00,000 per annum"
+        }
       },
-      { id: 2, title: "Backend Developer", company: "DataSys", location: "New York, NY", postedDate: "2023-03-05" },
+      {id: 2,
+        postedDate: "2023-03-05",
+        "Job Profile": "Software Engineer",
+        "Name": "Software Engineer - Level 1",
+        "Description": "Job description placeholder.",
+        "Role": "Project Lead",
+        "Location": "Delhi, India",
+        "Work Mode": "On-site",
+        "No of openings": 4,
+        "Job Type": "Full-time",
+        "Department": "Design",
+        "Candidate Preference": {
+          "Skill Set": [
+            "Agile",
+            "Scrum",
+            "JIRA",
+            "Risk Management"
+          ],
+          "Experience": "1-3 years",
+          "Education Details": "Diploma in UI/UX Design",
+          "Notice Period": "15 days",
+          "Salary Range": "\u20b920,00,000 - \u20b930,00,000 per annum"
+        }
+      },
       {
-        id: 3,
-        title: "Full Stack Developer",
-        company: "WebSolutions",
-        location: "Austin, TX",
+        id:3,
         postedDate: "2023-03-10",
+        "Job Profile": "Software Engineer",
+        "Name": "UI/UX Designer - Level 3",
+        "Description": "Job description placeholder.",
+        "Role": "Infrastructure Engineer",
+        "Location": "Pune, India",
+        "Work Mode": "Hybrid",
+        "No of openings": 1,
+        "Job Type": "Contract",
+        "Department": "Infrastructure",
+        "Candidate Preference": {
+          "Skill Set": [
+            "JavaScript",
+            "React",
+            "Node.js",
+            "MongoDB"
+          ],
+          "Experience": "10+ years",
+          "Education Details": "Master's degree in Data Science",
+          "Notice Period": "Immediate",
+          "Salary Range": "\u20b912,00,000 - \u20b918,00,000 per annum"
+        }
       },
-      { id: 4, title: "UI/UX Designer", company: "DesignPro", location: "Seattle, WA", postedDate: "2023-03-15" },
-      { id: 5, title: "Data Scientist", company: "AITech", location: "Boston, MA", postedDate: "2023-03-20" },
+      {
+        id:4,
+        postedDate: "2023-03-15",
+        "Job Profile": "Software Engineer",
+        "Name": "UI/UX Designer - Level 1",
+        "Description": "Job description placeholder.",
+        "Role": "Data Analyst",
+        "Location": "Delhi, India",
+        "Work Mode": "Remote",
+        "No of openings": 8,
+        "Job Type": "Full-time",
+        "Department": "Infrastructure",
+        "Candidate Preference": {
+          "Skill Set": [
+            "Figma",
+            "Adobe XD",
+            "Sketch",
+            "User Research"
+          ],
+          "Experience": "8-10 years",
+          "Education Details": "Master's degree in Data Science",
+          "Notice Period": "15 days",
+          "Salary Range": "\u20b95,00,000 - \u20b98,00,000 per annum"
+        }
+      },
     ]
 
     return of(mockJobs).pipe(

@@ -110,7 +110,7 @@ export class RecruiterService {
       shortlisted: false,
       jobId: "1",
       jobTitle: "Frontend Developer",
-      avatar: "/assets/avatars/avatar1.jpg",
+      avatar: "https://avatar.iran.liara.run/public/40",
       resume: "john_smith_resume.pdf",
     },
     {
@@ -137,7 +137,7 @@ export class RecruiterService {
       shortlisted: true,
       jobId: "1",
       jobTitle: "Frontend Developer",
-      avatar: "/assets/avatars/avatar2.jpg",
+      avatar: "https://avatar.iran.liara.run/public/73",
       resume: "emily_johnson_resume.pdf",
     },
     {
@@ -164,7 +164,7 @@ export class RecruiterService {
       shortlisted: false,
       jobId: "2",
       jobTitle: "Backend Developer",
-      avatar: "/assets/avatars/avatar3.jpg",
+      avatar: "https://avatar.iran.liara.run/public/32",
       resume: "michael_brown_resume.pdf",
     },
     {
@@ -191,7 +191,7 @@ export class RecruiterService {
       shortlisted: true,
       jobId: "2",
       jobTitle: "Backend Developer",
-      avatar: "/assets/avatars/avatar4.jpg",
+      avatar: "https://avatar.iran.liara.run/public/69",
       resume: "sarah_wilson_resume.pdf",
     },
     {
@@ -218,7 +218,7 @@ export class RecruiterService {
       shortlisted: false,
       jobId: "3",
       jobTitle: "UX/UI Designer",
-      avatar: "/assets/avatars/avatar5.jpg",
+      avatar: "https://avatar.iran.liara.run/public/92",
       resume: "widisha_pingle_resume.pdf",
     },
   ]

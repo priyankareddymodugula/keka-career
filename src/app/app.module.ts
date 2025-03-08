@@ -18,13 +18,7 @@ import { FeaturedCompaniesComponent } from './components/featured-companies/feat
 import { HttpClientModule } from '@angular/common/http';
 import { MatchScoreComponent } from './components/match-score/match-score.component';
 import { OpportunitiesComponent } from './pages/candidate-dashboard/opportunities/opportunities.component';
-import { EducationComponent } from './pages/candidate-dashboard/profile/education.component';
-import { ExperienceComponent } from './pages/candidate-dashboard/profile/experience.component';
-import { LinksComponent } from './pages/candidate-dashboard/profile/links.component';
-import { PersonalInfoComponent } from './pages/candidate-dashboard/profile/personal-info.component';
 import { ProfileComponent } from './pages/candidate-dashboard/profile/profile.component';
-import { ResumeComponent } from './pages/candidate-dashboard/profile/resume.component';
-import { SkillsComponent } from './pages/candidate-dashboard/profile/skills.component';
 import { CandidateDashboardComponent } from './pages/candidate-dashboard/candidate-dashboard.component';
 import { DashboardHomeComponent } from './pages/candidate-dashboard/dashboard-home.component';
 import { DashboardLayoutComponent } from './pages/candidate-dashboard/dashboard-layout.component';
@@ -39,8 +33,13 @@ import { MatchedCandidatesComponent } from './pages/recruiter-dashboard/matched-
 import { RecruiterDashboardComponent } from './pages/recruiter-dashboard/recruiter-dashboard.component';
 import { ShortlistedCandidatesComponent } from './pages/recruiter-dashboard/shortlisted/shortlisted-candidates.component';
 import { RecruiterLoginComponent } from './pages/auth/recruiter-login/recruiter-login.component';
+import { ApplicationsComponent } from './pages/candidate-dashboard/Applications/applications.component';
+import { SavedJobsComponent } from './pages/candidate-dashboard/saved-jobs/saved-jobs.candidate.component';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
+    SavedJobsComponent,
+    ApplicationsComponent,
     RecruiterLoginComponent,
     CandidateDetailsComponent,
     CreateJobComponent,
@@ -61,13 +60,7 @@ import { RecruiterLoginComponent } from './pages/auth/recruiter-login/recruiter-
     CompanyPageComponent,
     MatchScoreComponent,
     OpportunitiesComponent,
-    EducationComponent,
-    PersonalInfoComponent,
-    ExperienceComponent,
-    LinksComponent,
     ProfileComponent,
-    SkillsComponent,
-    ResumeComponent,
     DashboardNavbarComponent,
     DashboardLayoutComponent,
     DashboardHomeComponent,
@@ -79,7 +72,8 @@ import { RecruiterLoginComponent } from './pages/auth/recruiter-login/recruiter-
     CommonModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [AuthService, CompanyService],
   bootstrap: [AppComponent]
