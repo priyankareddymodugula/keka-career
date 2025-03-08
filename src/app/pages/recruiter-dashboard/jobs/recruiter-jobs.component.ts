@@ -63,9 +63,9 @@ import  { RecruiterService } from "../../../services/recruiter.service"
               <a [routerLink]="['../matched-candidates', job.id]" class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                 View Matched Candidates ({{job.matchedCandidates}})
               </a>
-              <button (click)="editJob(job)" class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+              <a  [routerLink]="['../create-job', job.id]" (click)="editJob(job)" class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                 Edit
-              </button>
+              </a>
               <button (click)="toggleJobStatus(job)" class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                 {{job.status === 'Active' ? 'Close' : 'Activate'}}
               </button>

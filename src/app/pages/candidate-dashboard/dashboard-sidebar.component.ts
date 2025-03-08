@@ -48,13 +48,7 @@ import { AuthService } from '../../services/auth.service';
           >
             Saved Jobs
           </a>
-          <a
-            routerLink="/dashboard/settings"
-            routerLinkActive="text-primary border-b-2 border-primary"
-            class="py-2 px-3 hover:text-gray-700"
-          >
-            Settings
-          </a>
+
         </nav>
         <div class="flex items-center space-x-4">
         <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-lg">

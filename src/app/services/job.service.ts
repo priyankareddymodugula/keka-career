@@ -14,7 +14,7 @@ export class JobService {
 
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
-    this.loadMockJobs();    
+    this.loadMockJobs();
   }
 
 
@@ -29,10 +29,10 @@ export class JobService {
   getJobById(id: string): Observable<any> {
     // In a real app, this would call the API
     // return this.http.get<any>(`${this.apiUrl}/${id}`);
-   
+
     // For demonstration, return mock data
     return this.getJobs().pipe(
-      map(jobs => jobs.find(job => job.id === id)), 
+      map(jobs => jobs.find(job => job.id === id)),
       first()
     );
   }
@@ -105,7 +105,7 @@ export class JobService {
     }
 
       return filteredJobs;
-    }));    
+    }));
   }
 
   sortJobs(sortBy: string): Observable<any[]> {
@@ -130,10 +130,10 @@ export class JobService {
           sortedJobs.sort((a:any, b:any) => {
             const salaryRangeA = a.salary.replace(/[^0-9,-]/g, "").split("-")
             const salaryRangeB = b.salary.replace(/[^0-9,-]/g, "").split("-")
-  
+
             const maxSalaryA = Number.parseInt(salaryRangeA[1].replace(",", ""))
             const maxSalaryB = Number.parseInt(salaryRangeB[1].replace(",", ""))
-  
+
             return maxSalaryB - maxSalaryA
           })
           break
@@ -144,7 +144,7 @@ export class JobService {
       }
 
       return sortedJobs;
-    }));   
+    }));
   }
 
   getJobsByPage(page: number, itemsPerPage: number): Observable<any[]> {

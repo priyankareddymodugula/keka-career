@@ -98,7 +98,11 @@ export const routes: Routes = [
         component: RecruiterJobsComponent,
       },
       {
-        path: 'create-job',
+        path:'create-job',
+        component: CreateJobComponent,
+      },
+      {
+        path: 'create-job/:jobId',
         component: CreateJobComponent,
       },
       {

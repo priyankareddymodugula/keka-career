@@ -34,7 +34,7 @@ export class RecruiterService {
       status: "Active",
       postedDate: "2023-03-01",
       deadline: "2023-04-01",
-      matchedCandidates: 12,
+      matchedCandidates: 2,
     },
     {
       id: "2",
@@ -57,7 +57,7 @@ export class RecruiterService {
       status: "Active",
       postedDate: "2023-03-05",
       deadline: "2023-04-05",
-      matchedCandidates: 8,
+      matchedCandidates: 2,
     },
     {
       id: "3",
@@ -80,7 +80,7 @@ export class RecruiterService {
       status: "Draft",
       postedDate: "2023-03-10",
       deadline: "2023-04-10",
-      matchedCandidates: 5,
+      matchedCandidates: 1,
     },
   ]
 

@@ -1,7 +1,8 @@
+import { JobService } from './../../../services/job.service';
 import { Component } from "@angular/core"
 import { CommonModule } from "@angular/common"
 import { FormsModule } from "@angular/forms"
-import  { Router } from "@angular/router"
+import  { ActivatedRoute, Router } from "@angular/router"
 import  { RecruiterService } from "../../../services/recruiter.service"
 
 @Component({
@@ -101,26 +102,16 @@ import  { RecruiterService } from "../../../services/recruiter.service"
             <div class="sm:col-span-3">
               <label for="experience" class="block text-sm font-medium text-gray-700">Experience</label>
               <div class="mt-1">
-                <select id="experience" name="experience" [(ngModel)]="job['Candidate Preference'].Experience" class="shadow-sm focus:ring-primary focus:border-primary block w-full sm:text-sm border-gray-300 rounded-md">
-                  <option value="0-1 years">0-1 years</option>
-                  <option value="1-3 years">1-3 years</option>
-                  <option value="3-5 years">3-5 years</option>
-                  <option value="5-10 years">5-10 years</option>
-                  <option value="10+ years">10+ years</option>
-                </select>
+              <input type="text" name="experience" id="experience" [(ngModel)]="job['Candidate Preference'].Experience" class="shadow-sm focus:ring-primary focus:border-primary block w-full sm:text-sm border-gray-300 rounded-md">
               </div>
             </div>
 
             <div class="sm:col-span-3">
               <label for="noticePeriod" class="block text-sm font-medium text-gray-700">Notice Period</label>
               <div class="mt-1">
-                <select id="noticePeriod" name="noticePeriod" [(ngModel)]="job['Candidate Preference']['Notice Period']" class="shadow-sm focus:ring-primary focus:border-primary block w-full sm:text-sm border-gray-300 rounded-md">
-                  <option value="Immediate">Immediate</option>
-                  <option value="15 days">15 days</option>
-                  <option value="30 days">30 days</option>
-                  <option value="60 days">60 days</option>
-                  <option value="90 days">90 days</option>
-                </select>
+              <input type="text" name="noticePeriod" id="noticePeriod" [(ngModel)]="job['Candidate Preference']['Notice Period']" class="shadow-sm focus:ring-primary focus:border-primary block w-full sm:text-sm border-gray-300 rounded-md">
+
+
               </div>
             </div>
 
@@ -161,7 +152,10 @@ import  { RecruiterService } from "../../../services/recruiter.service"
               <button type="button" (click)="cancel()" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                 Cancel
               </button>
-              <button type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+              <button  *ngIf="isedit"  type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+             Update Job
+              </button>
+               <button *ngIf="!isedit" type="submit" class="ml-3 inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                 Create Job
               </button>
             </div>
@@ -183,22 +177,38 @@ export class CreateJobComponent {
     "Job ": "Full-time",
     Department: "",
     "Candidate Preference": {
-      "Skill Set": [],
+      "Skill Set": "",
       Experience: "3-5 years",
       "Education Details": "",
       "Notice Period": "30 days",
       "Salary Range": "₹20,00,000 - ₹30,00,000 per annum",
     },
-  }
+  };
 
-  skillsInput = ""
-  jobStatus = "Draft"
-  applicationDeadline = ""
-
+  skillsInput = "";
+  jobStatus = "Draft";
+  applicationDeadline = "";
+  jobId:string = '';
+  isedit:boolean = false;
   constructor(
     private recruiterService: RecruiterService,
     private router: Router,
+    private route: ActivatedRoute,
   ) {}
+  ngOnInit(): void {
+    this.route.paramMap.subscribe((params) => {
+      this.jobId = params.get("jobId") || ""
+      this.loadJobDetails()
+    })
+  }
+
+  loadJobDetails(): void {
+    this.recruiterService.getJobById(this.jobId).subscribe((data) => {
+      this.job = data;
+      this.isedit = true;
+      this.skillsInput = data["Candidate Preference"]["Skill Set"];
+    })
+  }
 
   createJob() {
     // Convert comma-separated skills to array
