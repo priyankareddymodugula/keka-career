@@ -4,21 +4,16 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-dashboard-navbar',
   template: `
-    <nav class="w-full bg-white border-b border-gray-200 flex items-center justify-between px-6 py-3">
-      <!-- Left Section: Logo & Links -->
-      <div class="flex items-center space-x-6">
-
-      <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-lg">
-          {{ getInitials() }}
+  <header class="bg-white shadow-md">
+      <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+        <div class="flex items-center">
+          <a routerLink="/dashboard" class="flex items-center">
+            <!-- <img src="https://cdn.kekastatic.net/shared/branding/logo/keka-logo-light.svg" alt="Keka" class="h-10 w-auto" /> -->
+            <span class="ml-2 text-xl font-bold text-primary">Keka Career Portal</span>
+          </a>
         </div>
-
-
-        <!-- Logo -->
-        <div class="font-bold text-xl text-primary">Keka Career Portal</div>
-
-        <!-- Navigation Links -->
-        <div class="hidden md:flex space-x-6">
-          <a
+        <nav class="hidden md:flex items-center space-x-6">
+        <a
             routerLink="/dashboard"
             routerLinkActive="text-primary border-b-2 border-primary"
             class="py-2 px-3 hover:text-gray-700"
@@ -60,15 +55,11 @@ import { AuthService } from '../../services/auth.service';
           >
             Settings
           </a>
+        </nav>
+        <div class="flex items-center space-x-4">
+        <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold text-lg">
+          {{ getInitials() }}
         </div>
-      </div>
-
-      <!-- Right Section: User Info & Logout -->
-      <div class="flex items-center space-x-4">
-        <!-- User Avatar -->
-
-
-        <!-- Logout Button -->
         <button
           (click)="logout()"
           class="text-red-600 hover:text-red-800 flex items-center"
@@ -78,8 +69,10 @@ import { AuthService } from '../../services/auth.service';
           </svg>
           Logout
         </button>
+        </div>
       </div>
-    </nav>
+    </header>
+
   `,
 })
 export class DashboardNavbarComponent {

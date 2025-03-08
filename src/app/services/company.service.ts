@@ -1,6 +1,6 @@
 import { inject, Injectable } from "@angular/core"
 import { HttpClient } from "@angular/common/http"
-import { BehaviorSubject, first, map, type Observable, of } from "rxjs"
+import { BehaviorSubject, first, map,  Observable, of } from "rxjs"
 
 @Injectable({
   providedIn: "root",
@@ -62,7 +62,7 @@ export class CompanyService {
 
     // For demonstration, return mock data
     // This would typically return companies similar to the specified company
-   
+
     return this.getCompanies().pipe(
       map(companies => {
         var company = companies.find((company:any) => company.id === companyId)
@@ -70,7 +70,7 @@ export class CompanyService {
           return companies.filter((c:any) => c.id !== companyId && c.industry === company.industry)
           .slice(0, 3)
         }
-        
+
         return [];
       }));
   }
