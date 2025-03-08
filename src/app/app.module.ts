@@ -32,9 +32,22 @@ import { DashboardNavbarComponent } from './pages/candidate-dashboard/dashboard-
 import { HomeComponent } from './pages/Home/home.component';
 import { AuthService } from './services/auth.service';
 import { CompanyService } from './services/company.service';
-
+import { CandidateDetailsComponent } from './pages/recruiter-dashboard/candidate-details/candidate-details.component';
+import { CreateJobComponent } from './pages/recruiter-dashboard/create-job/create-job.component';
+import { RecruiterJobsComponent } from './pages/recruiter-dashboard/jobs/recruiter-jobs.component';
+import { MatchedCandidatesComponent } from './pages/recruiter-dashboard/matched-candidates/matched-candidates.component';
+import { RecruiterDashboardComponent } from './pages/recruiter-dashboard/recruiter-dashboard.component';
+import { ShortlistedCandidatesComponent } from './pages/recruiter-dashboard/shortlisted/shortlisted-candidates.component';
+import { RecruiterLoginComponent } from './pages/auth/recruiter-login/recruiter-login.component';
 @NgModule({
   declarations: [
+    RecruiterLoginComponent,
+    CandidateDetailsComponent,
+    CreateJobComponent,
+    RecruiterJobsComponent,
+    MatchedCandidatesComponent,
+    ShortlistedCandidatesComponent,
+    RecruiterDashboardComponent,
     FeaturedCompaniesComponent,
     JobCardComponent,
     AppComponent,
@@ -59,7 +72,7 @@ import { CompanyService } from './services/company.service';
     DashboardLayoutComponent,
     DashboardHomeComponent,
     CandidateDashboardComponent,
-    HomeComponent
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

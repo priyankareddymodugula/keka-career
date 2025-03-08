@@ -74,7 +74,7 @@ import { CompanyService } from "../../services/company.service"
 
           <div class="space-y-6">
             <app-job-card
-              *ngFor="let job of jobs"
+              *ngFor="let job of displayJobs"
               [job]="job"
             ></app-job-card>
 
@@ -85,64 +85,60 @@ import { CompanyService } from "../../services/company.service"
           </div>
 
           <!-- Pagination -->
-          <div *ngIf="jobs.length > 0" class="mt-8 flex justify-center">
-            <nav class="flex items-center space-x-2">
-              <button
-                [disabled]="currentPage === 1"
-                (click)="changePage(currentPage - 1)"
-                class="px-3 py-1 rounded-md border border-gray-300 disabled:opacity-50"
-              >
-                Previous
-              </button>
-              <div *ngFor="let page of getPageNumbers()">
-                <button
-                  (click)="changePage(page)"
-                  [class]="page === currentPage
-                    ? 'px-3 py-1 rounded-md bg-primary text-white'
-                    : 'px-3 py-1 rounded-md border border-gray-300'"
-                >
-                  {{ page }}
-                </button>
-              </div>
-              <button
-                [disabled]="currentPage === totalPages"
-                (click)="changePage(currentPage + 1)"
-                class="px-3 py-1 rounded-md border border-gray-300 disabled:opacity-50"
-              >
-                Next
-              </button>
-            </nav>
-          </div>
+          <div class="pagination">
+    <button class="pagination-btn" (click)="goToPreviousPage()" [disabled]="currentPage === 1">Previous</button>
+    <span class="page-number">Page {{ currentPage }} of {{ totalPages }}</span>
+    <button class="pagination-btn" (click)="goToNextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+          <!-- <div class="pagination-container">
+  <button [disabled]="currentPage === 1" (click)="changePage(currentPage - 1)">Previous</button>
+  <button *ngFor="let page of getPageNumbers()" (click)="changePage(page)" [class.active]="page === currentPage">
+    {{ page }}
+  </button>
+  <button [disabled]="currentPage === totalPages" (click)="changePage(currentPage + 1)">Next</button>
+</div> -->
         </div>
       </div>
 
       <!-- Featured Companies -->
       <div class="mt-16">
         <h2 class="text-2xl font-bold mb-8 text-center">Featured Companies Hiring</h2>
-        <app-featured-companies [companies]="featuredCompanies"></app-featured-companies>
+        <app-featured-companies [companies]="displayFeaturedCompanies"></app-featured-companies>
+        <div class="pagination">
+    <button class="pagination-btn" (click)="goToPreviousFeaturePage()" [disabled]="featuredCurrentPage === 1">Previous</button>
+    <span class="page-number">Page {{ featuredCurrentPage }} of {{ featuredTotalPages }}</span>
+    <button class="pagination-btn" (click)="goToNextFeaturePage()" [disabled]="featuredCurrentPage === featuredTotalPages">Next</button>
+  </div>
       </div>
     </div>
   `,
 })
 export class SearchPageComponent implements OnInit {
-  searchQuery = ""
-  locationQuery = ""
-  jobs: any[] = []
-  featuredCompanies: any[] = []
+  searchQuery = "";
+  locationQuery = "";
+  jobs: any[] = [];
+  displayJobs : any[] = [];
+  featuredCompanies: any[] = [];
+  displayFeaturedCompanies: any[] = [];
 
   // Filter options
-  experiences: string[] = ["0-1 years", "1-3 years", "3-5 years", "5-10 years", "10+ years"]
-  skills: string[] = ["JavaScript", "Angular", "React", "Node.js", "Python", "Java", "C#", "PHP", "Ruby", "Swift"]
-  industries: string[] = ["Technology", "Healthcare", "Finance", "Education", "Retail", "Manufacturing", "Media"]
-  locations: string[] = ["Remote", "New York", "San Francisco", "London", "Berlin", "Tokyo", "Sydney", "Bangalore"]
+  experiences: string[] = ["0-1 years", "1-3 years", "3-5 years", "5-10 years", "10+ years"];
+  skills: string[] = ["JavaScript", "Angular", "React", "Node.js", "Python", "Java", "C#", "PHP", "Ruby", "Swift"];
+  industries: string[] = ["Technology", "Healthcare", "Finance", "Education", "Retail", "Manufacturing", "Media"];
+  locations: string[] = ["Remote", "New York", "San Francisco", "London", "Berlin", "Tokyo", "Sydney", "Bangalore"];
 
-  // Pagination
-  currentPage = 1
-  totalPages = 1
-  itemsPerPage = 10
+  // Pagination for jobs
+  currentPage = 1;
+  totalPages = 1;
+  itemsPerPage = 8;
+
+  // Pagination for featured companies
+  featuredCurrentPage = 1;
+  featuredTotalPages = 1;
+  featuredItemsPerPage = 6;
 
   // Sorting
-  sortBy = "relevance"
+  sortBy = "relevance";
 
   constructor(
     private jobService: JobService,
@@ -153,63 +149,114 @@ export class SearchPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loadJobs()
-    this.loadFeaturedCompanies()
+    this.loadJobs();
+    this.loadFeaturedCompanies();
   }
 
   loadJobs(): void {
-    // In a real app, this would call the job service with proper parameters
     this.jobService.getJobs().subscribe((data) => {
-      this.jobs = data
-      this.totalPages = Math.ceil(this.jobs.length / this.itemsPerPage)
-    })
+      this.jobs = data;
+      this.totalPages = Math.ceil(this.jobs.length / this.itemsPerPage);
+      this.currentPage = 1;
+      this.updatePagination();
+    });
   }
 
   loadFeaturedCompanies(): void {
     this.companyService.getFeaturedCompanies().subscribe((data) => {
-      this.featuredCompanies = data
-    })
+      this.featuredCompanies = data;
+      this.featuredTotalPages = Math.ceil(this.featuredCompanies.length / this.featuredItemsPerPage);
+      this.featuredCurrentPage = 1;
+      this.updateFeaturePagination();
+    });
   }
 
   searchJobs(): void {
-    // In a real app, this would call the job service with search parameters
     this.jobService.searchJobs(this.searchQuery, this.locationQuery).subscribe((data) => {
-      this.jobs = data
-      this.totalPages = Math.ceil(this.jobs.length / this.itemsPerPage)
-      this.currentPage = 1
-    })
+      this.jobs = data;
+      this.totalPages = Math.ceil(this.jobs.length / this.itemsPerPage);
+      this.currentPage = 1;
+    });
   }
 
   applyFilters(filters: any): void {
-    // In a real app, this would call the job service with filter parameters
     this.jobService.filterJobs(filters).subscribe((data) => {
-      this.jobs = data
-      this.totalPages = Math.ceil(this.jobs.length / this.itemsPerPage)
-      this.currentPage = 1
-    })
+      this.jobs = data;
+      this.totalPages = Math.ceil(this.jobs.length / this.itemsPerPage);
+      this.currentPage = 1;
+    });
   }
 
   sortJobs(): void {
-    // In a real app, this would call the job service with sort parameters
     this.jobService.sortJobs(this.sortBy).subscribe((data) => {
-      this.jobs = data
-    })
+      this.jobs = data;
+    });
   }
 
   changePage(page: number): void {
-    this.currentPage = page
-    // In a real app, this would call the job service with pagination parameters
+    this.currentPage = page;
     this.jobService.getJobsByPage(page, this.itemsPerPage).subscribe((data) => {
-      this.jobs = data
-    })
+      this.jobs = data;
+    });
+  }
+
+  changeFeaturedPage(page: number): void {
+    this.featuredCurrentPage = page;
+    const start = (page - 1) * this.featuredItemsPerPage;
+    const end = start + this.featuredItemsPerPage;
+    this.featuredCompanies = this.featuredCompanies.slice(start, end);
   }
 
   getPageNumbers(): number[] {
-    const pages: number[] = []
-    for (let i = 1; i <= this.totalPages; i++) {
-      pages.push(i)
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  getFeaturedPageNumbers(): number[] {
+    return Array.from({ length: this.featuredTotalPages }, (_, i) => i + 1);
+  }
+
+  updatePagination(): void {
+    this.totalPages = Math.ceil(this.jobs.length / this.itemsPerPage);
+    this.displayJobs = this.jobs.slice(
+      (this.currentPage - 1) * this.itemsPerPage,
+      this.currentPage * this.itemsPerPage
+    );
+  }
+
+  goToPreviousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePagination();
     }
-    return pages
+  }
+
+  goToNextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagination();
+    }
+  }
+
+  updateFeaturePagination(): void {
+    this.featuredTotalPages = Math.ceil(this.featuredCompanies.length / this.featuredItemsPerPage);
+    this.displayFeaturedCompanies = this.featuredCompanies.slice(
+      (this.featuredCurrentPage - 1) * this.featuredItemsPerPage,
+      this.featuredCurrentPage * this.featuredItemsPerPage
+    );
+  }
+
+  goToPreviousFeaturePage(): void {
+    if (this.featuredCurrentPage > 1) {
+      this.featuredCurrentPage--;
+      this.updateFeaturePagination();
+    }
+  }
+
+  goToNextFeaturePage(): void {
+    if (this.featuredCurrentPage < this.featuredTotalPages) {
+      this.featuredCurrentPage++;
+      this.updateFeaturePagination();
+    }
   }
 }
 

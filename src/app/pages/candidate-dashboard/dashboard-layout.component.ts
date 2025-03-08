@@ -3,23 +3,21 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-dashboard-layout',
   template: `
+  <div class="min-h-screen flex flex-col">
 
-      <div class="flex-grow flex flex-col md:flex-row">
-        <div>
-        <app-dashboard-navbar></app-dashboard-navbar>
-        <div class="mt-10">
-        <router-outlet></router-outlet>
-
-        </div>
-        </div>
-
-      <!--
-      <app-candidate-dashboard></app-candidate-dashboard> -->
-
-        <main class="flex-grow p-4 md:p-8 bg-gray-50">
-
+  <app-dashboard-navbar></app-dashboard-navbar>
+  <div class="py-10">
+        <main>
+          <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <router-outlet></router-outlet>
+          </div>
         </main>
       </div>
+
+  <app-footer></app-footer>
+</div>
+
+
 
   `,
 })
