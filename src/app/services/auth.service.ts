@@ -72,7 +72,8 @@ export class AuthService {
           ]
       }
   }
-let temp = this.mockCandidates.find((c:any)=> email.includes(c['Personal Details']['Name']))
+  let userString = email?.split('@')?.[0]?.toLowerCase()
+let temp = this.mockCandidates.find((c:any)=> userString == c?.['Personal Details']?.['Name']?.toLowerCase())
 
   const user  = temp? temp : transformCandidateProfile(u);
 

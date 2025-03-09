@@ -5,7 +5,7 @@ export function transformCandidateProfile(input: any): any {
     avatar: "https://avatar.iran.liara.run/public/40",
     "Personal Details": {
       "Name": input.candidateProfile.name,
-      "Email": "candidate0@example.com", // Default value, as it's not in the input
+      "Email": input.candidateProfile.name + "@gmail.com", // Default value, as it's not in the input
       "Mobile Phone": "6543210987", // Default value, as it's not in the input
       "Address": input.candidateProfile.currentLocation,
     },
