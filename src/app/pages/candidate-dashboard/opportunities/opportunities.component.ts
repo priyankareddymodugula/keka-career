@@ -28,7 +28,8 @@ import { MatchScoreComponent } from "../../../components/match-score/match-score
 
     <!-- Job List -->
     <ul role="list" class="divide-y divide-gray-200">
-      <li *ngFor="let job of matchedJobs" class="px-4 py-4 sm:px-6">
+      <ng-container *ngFor="let job of matchedJobs">
+      <li  *ngIf="!job.applied" class="px-4 py-4 sm:px-6">
         <div class="flex items-center justify-between">
           <!-- Checkbox -->
           <div class="flex items-center">
@@ -110,6 +111,7 @@ import { MatchScoreComponent } from "../../../components/match-score/match-score
           </button>
         </div>
       </li>
+      </ng-container>
     </ul>
   </div>
 </div>
@@ -140,6 +142,7 @@ export class OpportunitiesComponent implements OnInit {
 
   applyForJob(job: any) {
     console.log("Applying for job:", job);
+    alert(`Applied to ${job.Name} jobs successfully!`);
     job.applied = true;
   }
 

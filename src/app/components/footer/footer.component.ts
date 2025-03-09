@@ -7,7 +7,7 @@ import { Component, Input } from "@angular/core"
       <div class="container mx-auto px-4">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div>
-            <h3 class="text-lg font-semibold mb-4">Keka Career Portal</h3>
+            <h3 class="text-lg font-semibold mb-4">Keka Jobs</h3>
             <p class="text-gray-300">Find your dream job with top companies around the world.</p>
           </div>
           <div>

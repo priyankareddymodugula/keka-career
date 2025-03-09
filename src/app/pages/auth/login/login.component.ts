@@ -64,6 +64,12 @@ import { Router } from "@angular/router";
               </a>
             </div>
           </div>
+          <div class="mt-6 text-center">
+          <p class="text-sm text-gray-600">
+            Not a Candidate? <a routerLink="/home/recruiterlogin" class="font-medium text-primary hover:text-primary-dark">Sign in as a Recruiter</a>
+          </p>
+        </div>
+          <!-- <a routerLink="" class="border border-primary text-primary px-4 py-2 rounded-md hover:bg-primary hover:text-white font-medium">Recruiter Login</a> -->
 
           <div>
             <button

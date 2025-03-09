@@ -89,7 +89,7 @@ export class AuthService {
     localStorage.removeItem("currentUser")
     sessionStorage.removeItem("currentUser")
     this.currentUserSubject.next(null)
-    this.router.navigate(["/"])
+    this.router.navigate(["/home/login"])
   }
 
   updateProfile(profile: any): Observable<any> {

@@ -327,9 +327,7 @@ export class ProfileComponent implements OnInit {
 
   saveProfile() {
     if (this.profileForm.valid) {
-      this.candidate['Personal Details'] = this.profileForm.value.personalDetails;
-      this.candidate['Professional Details'] = this.profileForm.value.professionalDetails;
-      this.candidate['Job Preference'] = this.profileForm.value.jobPreference;
+      alert('Profile saved successfully ')
       this.isEditing = false;
     } else {
       alert('Please fill all required fields.');

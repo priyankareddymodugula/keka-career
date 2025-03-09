@@ -9,17 +9,17 @@ import { AuthService } from '../../services/auth.service';
         <div class="flex items-center">
           <a routerLink="/dashboard" class="flex items-center">
             <!-- <img src="https://cdn.kekastatic.net/shared/branding/logo/keka-logo-light.svg" alt="Keka" class="h-10 w-auto" /> -->
-            <span class="ml-2 text-xl font-bold text-primary">Keka Career Portal</span>
+            <span class="ml-2 text-xl font-bold text-primary">Keka Jobs</span>
           </a>
         </div>
         <nav class="hidden md:flex items-center space-x-6">
-        <a
+        <!-- <a
             routerLink="/dashboard"
             routerLinkActive="text-primary border-b-2 border-primary"
             class="py-2 px-3 hover:text-gray-700"
           >
             Dashboard
-          </a>
+          </a> -->
           <a
             routerLink="/dashboard/profile"
             routerLinkActive="text-primary border-b-2 border-primary"
@@ -88,7 +88,5 @@ export class DashboardNavbarComponent {
   }
 
   logout(): void {
-    this.authService.logout();
-    window.location.href = '/login';
-  }
+    this.authService.logout();  }
 }

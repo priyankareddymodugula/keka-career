@@ -49,15 +49,15 @@ import { JobService } from "../../services/job.service"
                 </div>
               </div>
               <div class="flex flex-col sm:flex-row gap-4">
-                <button class="bg-primary text-white px-6 py-3 rounded-md hover:bg-primary-dark font-medium">
+                <a routerLink="/home/login" class="bg-primary text-white px-6 py-3 rounded-md hover:bg-primary-dark font-medium">
                   Apply Now
-                </button>
-                <button class="border border-gray-300 px-6 py-3 rounded-md hover:bg-gray-50 font-medium flex items-center justify-center">
+                </a>
+                <a routerLink="/home/login" class="border border-gray-300 px-6 py-3 rounded-md hover:bg-gray-50 font-medium flex items-center justify-center">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
                   </svg>
                   Save Job
-                </button>
+                </a>
               </div>
             </div>
           </div>

@@ -197,8 +197,9 @@ export class CreateJobComponent {
   ) {}
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
-      this.jobId = params.get("jobId") || ""
-      this.loadJobDetails()
+      this.jobId = params.get("jobId") || "";
+      if (this.jobId) {      this.loadJobDetails()}
+
     })
   }
 

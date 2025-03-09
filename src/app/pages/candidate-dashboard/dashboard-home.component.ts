@@ -1,3 +1,4 @@
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { JobMatchService } from 'src/app/services/job-match.service';
 
@@ -85,7 +86,7 @@ import { JobMatchService } from 'src/app/services/job-match.service';
       </div>
     </div>
 
-    <div class="mt-8 bg-white rounded-lg shadow-md p-6">
+    <!-- <div class="mt-8 bg-white rounded-lg shadow-md p-6">
       <h2 class="text-lg font-semibold mb-4">Recent Job Matches</h2>
       <div class="overflow-x-auto">
         <table class="min-w-full divide-y divide-gray-200">
@@ -150,7 +151,7 @@ import { JobMatchService } from 'src/app/services/job-match.service';
           </tbody>
         </table>
       </div>
-    </div>
+    </div> -->
 
     <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
       <div class="bg-white rounded-lg shadow-md p-6">
@@ -209,13 +210,36 @@ import { JobMatchService } from 'src/app/services/job-match.service';
 export class DashboardHomeComponent implements OnInit {
   profileCompletion: number = 65;
   matchedJobs: any[] = [];
-  applications: any[] = [];
-  pendingApplications: number = 0;
-  interviewApplications: number = 0;
+  applications: any[] =  [
+    {
+      jobTitle: 'Software Engineer',
+      company: 'Tech Corp',
+      location: 'Remote',
+      appliedDate: '2023-10-01',
+      status: 'pending'
+    },
+    {
+      jobTitle: 'Data Scientist',
+      company: 'Data Inc',
+      location: 'New York, NY',
+      appliedDate: '2023-09-25',
+      status: 'interview'
+    },
+    {
+      jobTitle: 'Product Manager',
+      company: 'Innovate LLC',
+      location: 'San Francisco, CA',
+      appliedDate: '2023-09-20',
+      status: 'Offer Extended'
+    }
+  ];;
+  pendingApplications: number = 1;
+  interviewApplications: number = 1;
   upcomingInterviews: any[] = [];
 
   constructor(
-    private jobMatchingService: JobMatchService
+    private jobMatchingService: JobMatchService,
+    private authservice: AuthService,
   ) {}
 
   ngOnInit(): void {
@@ -223,6 +247,18 @@ export class DashboardHomeComponent implements OnInit {
     this.loadMatchedJobs();
     this.loadApplications();
     this.loadUpcomingInterviews();
+    this.authservice.currentUser$.subscribe((user) => {
+      if (user) {
+        this.jobMatchingService.getMatchedJobs(user).subscribe(
+          (jobs) => {
+            this.matchedJobs = jobs
+          },
+          (error) => {
+            console.error("Error fetching matched jobs:", error)
+          },
+        )
+      }
+    })
   }
 
   loadProfileCompletion(): void {

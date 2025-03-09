@@ -8,7 +8,7 @@ import { Component } from "@angular/core"
         <div class="flex items-center">
           <a routerLink="/home/search" class="flex items-center">
             <!-- <img src="https://cdn.kekastatic.net/shared/branding/logo/keka-logo-light.svg" alt="Keka" class="h-10 w-auto" /> -->
-            <span class="ml-2 text-xl font-bold text-primary">Keka Career Portal</span>
+            <span class="ml-2 text-xl font-bold text-primary">Keka Jobs</span>
           </a>
         </div>
         <nav class="hidden md:flex items-center space-x-6">
@@ -20,7 +20,6 @@ import { Component } from "@angular/core"
         <div class="flex items-center space-x-4">
           <a routerLink="/home/login" class="text-primary hover:text-primary-dark font-medium">Login</a>
           <a routerLink="/home/signup" class="bg-primary text-white px-4 py-2 rounded-md hover:bg-primary-dark font-medium">Sign Up</a>
-          <a routerLink="/home/recruiterlogin" class="border border-primary text-primary px-4 py-2 rounded-md hover:bg-primary hover:text-white font-medium">Recruiter Login</a>
         </div>
       </div>
     </header>
