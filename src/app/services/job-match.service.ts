@@ -1,25 +1,75 @@
 import { Injectable } from "@angular/core"
-import  { HttpClient } from "@angular/common/http"
-import {  Observable, of } from "rxjs"
-import { map } from "rxjs/operators"
+import  { HttpClient, HttpHeaders } from "@angular/common/http"
+import {  Observable, of, forkJoin } from "rxjs"
+import { map, switchMap } from "rxjs/operators"
+import  { JobService } from "./job.service"
+import { RecruiterService } from "./recruiter.service"
 
 @Injectable({
   providedIn: "root",
 })
 export class JobMatchService {
-  private apiUrl = "api/job-matches"
+  private matchingApiUrl = "https://as-scm-gae3atapetccdcgw.centralus-01.azurewebsites.net/Matching"
 
-  constructor() {}
+  constructor(
+    private http: HttpClient,
+    private jobService: RecruiterService,
+  ) {}
 
-  getMatchedJobs(user: any): Observable<any[]> {
-    // In a real application, you would send the user's profile to the server
-    // and receive matched jobs with scores. Here, we'll simulate this process.
-    return this.simulateJobMatching(user)
+  /**
+   * Get jobs that match a candidate's profile
+   * @param candidateId The ID of the candidate
+   * @param maxCount Maximum number of matches to return
+   * @param minMatchingPercent Minimum matching percentage threshold
+   * @returns Observable of matched jobs with scores
+   */
+  getMatchedJobs(candidateId: string, maxCount = 10, minMatchingPercent = 50): Observable<any[]> {
+    // In a real environment, use the API
+    if (this.isRealEnvironment()) {
+      const headers = new HttpHeaders({
+              'Access-Control-Allow-Origin': '*'
+            });
+      const url = `${this.matchingApiUrl}/0/${candidateId}?maxCount=${maxCount}&minMatchingPercent=${minMatchingPercent}`
+
+      return this.http.get<any[]>(url,{headers}).pipe(
+        switchMap((matches) => {
+          if (!matches || matches.length === 0) {
+            return of([])
+          }
+
+          // Create an array of observables for each job detail request
+          const jobRequests = matches.map((match) =>
+            this.jobService.getJobById(match.id).pipe(
+              map((job) => ({
+                ...job,
+                matchScore: match.matchPercentage,
+              })),
+            ),
+          )
+
+          // Wait for all requests to complete and return the combined result
+          return forkJoin(jobRequests)
+        }),
+      )
+    }
+
+    // For demonstration, use mock data
+    return this.simulateJobMatching()
   }
 
-  private simulateJobMatching(user: any): Observable<any[]> {
+  /**
+   * Check if we're in a real environment where API calls should be made
+   * This could be based on environment variables or other configuration
+   */
+  private isRealEnvironment(): boolean {
+    // For demonstration purposes, return false
+    // In a real app, this would check environment variables or other configuration
+    return true
+  }
+
+  private simulateJobMatching(): Observable<any[]> {
     // This is a mock implementation. In a real app, this logic would be on the server.
-    const mockJobs = [
+    const mockJobs =   [
       { postedDate: "2023-03-01",
         id: 1,
         "Job Profile": "UI/UX Designer",
@@ -120,36 +170,7 @@ export class JobMatchService {
       },
     ]
 
-    return of(mockJobs).pipe(
-      map((jobs) =>
-        jobs.map((job) => ({
-          ...job,
-          matchScore: this.calculateMatchScore(user, job),
-        })),
-      ),
-    )
-  }
-
-  private calculateMatchScore(user: any, job: any): number {
-    // This is a simplified scoring algorithm. In a real AI-based system,
-    // this would be much more complex and would likely use machine learning.
-    let score = 0
-
-    // Simulate matching based on job title
-    if (user.skills && user.skills.toLowerCase().includes(job.title.toLowerCase())) {
-      score += 50
-    }
-
-    // Simulate matching based on experience
-    if (user.experience) {
-      score += Math.min(user.experience * 5, 30) // Max 30 points for experience
-    }
-
-    // Add some randomness to simulate other factors
-    score += Math.random() * 20
-
-    // Ensure the score is between 0 and 100
-    return Math.min(Math.round(score), 100)
+    return of(mockJobs)
   }
 }
 

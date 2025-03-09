@@ -249,7 +249,7 @@ export class DashboardHomeComponent implements OnInit {
     this.loadUpcomingInterviews();
     this.authservice.currentUser$.subscribe((user) => {
       if (user) {
-        this.jobMatchingService.getMatchedJobs(user).subscribe(
+        this.jobMatchingService.getMatchedJobs(user.id).subscribe(
           (jobs) => {
             this.matchedJobs = jobs
           },

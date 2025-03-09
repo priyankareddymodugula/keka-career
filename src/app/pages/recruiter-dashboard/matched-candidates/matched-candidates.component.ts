@@ -1,8 +1,9 @@
-import { Component,  OnInit } from "@angular/core"
+import { Component, type OnInit } from "@angular/core"
 import { CommonModule } from "@angular/common"
 import { RouterLink,  ActivatedRoute } from "@angular/router"
 import  { RecruiterService } from "../../../services/recruiter.service"
 import { MatchScoreComponent } from "../../../components/match-score/match-score.component"
+import { FormsModule } from "@angular/forms"
 
 @Component({
   selector: "app-matched-candidates",
@@ -15,7 +16,22 @@ import { MatchScoreComponent } from "../../../components/match-score/match-score
             Candidates matched for: <span class="font-medium">{{jobTitle}}</span>
           </p>
         </div>
-        <div>
+        <div class="flex items-center space-x-4">
+          <div class="flex items-center">
+            <label for="minMatchPercent" class="mr-2 text-sm text-gray-600">Min Match %:</label>
+            <select
+              id="minMatchPercent"
+              [(ngModel)]="minMatchPercent"
+              (change)="loadMatchedCandidates()"
+              class="border border-gray-300 rounded-md px-3 py-1 focus:outline-none focus:ring-2 focus:ring-primary"
+            >
+              <option value="50">50%</option>
+              <option value="60">60%</option>
+              <option value="70">70%</option>
+              <option value="80">80%</option>
+              <option value="90">90%</option>
+            </select>
+          </div>
           <button (click)="shortlistAll()" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
             Shortlist All
           </button>
@@ -77,6 +93,9 @@ import { MatchScoreComponent } from "../../../components/match-score/match-score
               </a>
             </div>
           </li>
+          <li *ngIf="candidates.length === 0" class="px-4 py-8 text-center">
+            <p class="text-gray-500">No matching candidates found with the current criteria.</p>
+          </li>
         </ul>
       </div>
     </div>
@@ -86,6 +105,8 @@ export class MatchedCandidatesComponent implements OnInit {
   jobId = ""
   jobTitle = ""
   candidates: any[] = []
+  minMatchPercent = 80
+  maxCount = 10
 
   constructor(
     private route: ActivatedRoute,
@@ -112,7 +133,7 @@ export class MatchedCandidatesComponent implements OnInit {
   }
 
   loadMatchedCandidates() {
-    this.recruiterService.getMatchedCandidates(this.jobId).subscribe(
+    this.recruiterService.getMatchedCandidates(this.jobId, this.maxCount, this.minMatchPercent).subscribe(
       (candidates) => {
         this.candidates = candidates
       },

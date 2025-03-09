@@ -3,6 +3,7 @@ import  { HttpClient } from "@angular/common/http"
 import { BehaviorSubject,  Observable, of } from "rxjs"
 import { tap } from "rxjs/operators"
 import  { Router } from "@angular/router"
+import { transformCandidateProfile } from "../candidate-profile.utils"
 
 @Injectable({
   providedIn: "root",
@@ -25,39 +26,42 @@ export class AuthService {
 
   login(email: string, password: string, rememberMe: boolean): Observable<any> {
     // Simulate API call
-    const user =  {
-      "Personal Details": {
-        "Name": "Amit Sharma",
-        "Email": "candidate0@example.com",
-        "Mobile Phone": "6543210987",
-        "Address": "Bangalore, India"
+    const u ={
+      "candidateProfile": {
+          "currentLocation": "Bangalore, India",
+          "experience": "18 years",
+          "currentRole": "Software Developer",
+          "currentCtc": "₹1,658,089 per annum",
+          "currentCompany": "Google",
+          "currentIndustry": "Healthcare",
+          "educationDetails": "B.Tech",
+          "skills": [
+              "Java",
+              "C#",
+              "React",
+              "Node.js"
+          ],
+          "currentNoticePeriod": "45 days",
+          "id": "79a7c5c8-aa60-4f45-a67b-59eb813c987c",
+          "name": "Candidate_1"
       },
-      "Professional Details": {
-        "Current Location": "Delhi, India",
-        "Experience": "8-10 years",
-        "Current Role": "Data Analyst",
-        "Current CTC": "₹5,00,000 - ₹8,00,000 per annum",
-        "Current Company": "Amazon",
-        "Current Industry": "E-commerce",
-        "Education Details": "Bachelor's degree in Computer Science",
-        "Skills": [
-          "JavaScript",
-          "React",
-          "Node.js",
-          "MongoDB"
-        ],
-        "Current Notice Period": "15 days",
-        "Social Media": "linkedin.com/in/sneha"
-      },
-      "Job Preference": {
-        "Location": "Bangalore, India",
-        "Expected CTC": "₹12,00,000 - ₹18,00,000 per annum",
-        "Role": "UX Designer",
-        "Industry": "E-commerce",
-        "Work Mode": "Hybrid",
-        "Job Type": "Contract"
+      "jobPreference": {
+          "location": "Bangalore, India",
+          "expectedCtc": "₹2,959,333 per annum",
+          "role": "Senior Software Developer",
+          "industry": "IT Services",
+          "workMode": "Hybrid",
+          "jobType": "Full-time",
+          "skills": [
+              "Java",
+              "C#",
+              "React",
+              "Node.js"
+          ]
       }
-    }
+  }
+  const user  = transformCandidateProfile(u);
+
 
     if (rememberMe) {
       localStorage.setItem("currentUser", JSON.stringify(user))

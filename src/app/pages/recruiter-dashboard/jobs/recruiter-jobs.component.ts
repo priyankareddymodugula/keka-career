@@ -20,7 +20,7 @@ import  { RecruiterService } from "../../../services/recruiter.service"
       </div>
       <div class="border-t border-gray-200">
         <ul role="list" class="divide-y divide-gray-200">
-          <li *ngFor="let job of jobs" class="px-4 py-4 sm:px-6">
+          <li *ngFor="let job of displayJobs" class="px-4 py-4 sm:px-6">
             <div class="flex items-center justify-between">
               <p class="text-sm font-medium text-primary truncate">{{job.Name}}</p>
               <div class="ml-2 flex-shrink-0 flex">
@@ -61,7 +61,7 @@ import  { RecruiterService } from "../../../services/recruiter.service"
             </div>
             <div class="mt-4 flex space-x-3">
               <a [routerLink]="['../matched-candidates', job.id]" class="inline-flex items-center px-3 py-1.5 border border-transparent text-xs font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
-                View Matched Candidates ({{job.matchedCandidates}})
+                View Matched Candidates
               </a>
               <a  [routerLink]="['../create-job', job.id]" (click)="editJob(job)" class="inline-flex items-center px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
                 Edit
@@ -72,19 +72,50 @@ import  { RecruiterService } from "../../../services/recruiter.service"
             </div>
           </li>
         </ul>
+        <div class="pagination">
+    <button class="pagination-btn" (click)="goToPreviousPage()" [disabled]="currentPage === 1">Previous</button>
+    <span class="page-number">Page {{ currentPage }} of {{ totalPages }}</span>
+    <button class="pagination-btn" (click)="goToNextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
       </div>
     </div>
   `,
 })
 export class RecruiterJobsComponent implements OnInit {
-  jobs: any[] = []
+  jobs: any[] = [];
+  currentPage = 1;
+  totalPages = 1;
+  itemsPerPage = 8;
+  displayJobs : any[] = [];
 
   constructor(private recruiterService: RecruiterService) {}
+  updatePagination(): void {
+    this.totalPages = Math.ceil(this.jobs.length / this.itemsPerPage);
+    this.displayJobs = this.jobs.slice(
+      (this.currentPage - 1) * this.itemsPerPage,
+      this.currentPage * this.itemsPerPage
+    );
+  }
+
+  goToPreviousPage(): void {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePagination();
+    }
+  }
+
+  goToNextPage(): void {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagination();
+    }
+  }
 
   ngOnInit() {
     this.recruiterService.getRecruiterJobs().subscribe(
       (jobs) => {
-        this.jobs = jobs
+        this.jobs = jobs;
+        this.updatePagination();
       },
       (error) => {
         console.error("Error fetching recruiter jobs:", error)

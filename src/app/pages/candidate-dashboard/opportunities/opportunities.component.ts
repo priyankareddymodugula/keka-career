@@ -69,39 +69,6 @@ import { MatchScoreComponent } from "../../../components/match-score/match-score
                 </p>
               </div>
             </div>
-        <!-- <div class="mt-2 sm:flex sm:justify-between">
-          <div class="sm:flex">
-            <p class="flex items-center text-sm text-gray-500">
-              <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4zm3 1h6v4H7V5zm6 6H7v2h6v-2z" clip-rule="evenodd" />
-              </svg>
-              {{ job.Role }}
-            </p>
-            <p class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
-              <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-              </svg>
-              {{ job.Location }}
-            </p>
-          </div>
-          <div class="mt-2 flex items-center text-sm text-gray-500 sm:mt-0">
-            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
-            </svg>
-            <p>
-              Posted on <time [dateTime]="job.postedDate">{{ job.postedDate | date }}</time>
-            </p>
-          </div>
-        </div> -->
-        <!-- Additional Job Details -->
-        <!-- <div class="mt-4 space-y-2">
-          <p class="text-sm text-gray-500"><strong>Work Mode:</strong> {{ job['Work Mode'] }}</p>
-          <p class="text-sm text-gray-500"><strong>Job Type:</strong> {{ job['Job Type'] }}</p>
-          <p class="text-sm text-gray-500"><strong>Department:</strong> {{ job.Department }}</p>
-          <p class="text-sm text-gray-500"><strong>Experience:</strong> {{ job['Candidate Preference'].Experience }}</p>
-          <p class="text-sm text-gray-500"><strong>Salary Range:</strong> {{ job['Candidate Preference']['Salary Range'] }}</p>
-          <p class="text-sm text-gray-500"><strong>Skills Required:</strong> {{ job['Candidate Preference']['Skill Set'].join(', ') }}</p>
-        </div> -->
         <div class="mt-4">
           <button
             (click)="applyForJob(job)"
@@ -128,7 +95,7 @@ export class OpportunitiesComponent implements OnInit {
   ngOnInit() {
     this.authService.currentUser$.subscribe((user) => {
       if (user) {
-        this.jobMatchService.getMatchedJobs(user).subscribe(
+        this.jobMatchService.getMatchedJobs(user.id).subscribe(
           (jobs) => {
             this.matchedJobs = jobs
           },
