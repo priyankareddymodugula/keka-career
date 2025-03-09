@@ -12,16 +12,28 @@ export class AuthService {
   private apiUrl = "api/auth"
   private currentUserSubject = new BehaviorSubject<any>(null)
   public currentUser$ = this.currentUserSubject.asObservable()
+  private mockCandidates:any[] =[];
 
   constructor(
     private router: Router,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private http: HttpClient,
   ) {
     // Check if user is already logged in
     const user = localStorage.getItem("currentUser")
     if (user) {
       this.currentUserSubject.next(JSON.parse(user))
     }
+    this.loadMockCandidates();
+  }
+  private loadMockCandidates(){
+    this.http.get<any[]>('../assets/JSON/candidates.json').subscribe(data=>{
+      let temp:any = [];
+      data.forEach((d:any) => {
+        temp.push(transformCandidateProfile(d))
+      })
+      this.mockCandidates = temp;
+    });
   }
 
   login(email: string, password: string, rememberMe: boolean): Observable<any> {
@@ -60,7 +72,9 @@ export class AuthService {
           ]
       }
   }
-  const user  = transformCandidateProfile(u);
+let temp = this.mockCandidates.find((c:any)=> email.includes(c['Personal Details']['Name']))
+
+  const user  = temp? temp : transformCandidateProfile(u);
 
 
     if (rememberMe) {

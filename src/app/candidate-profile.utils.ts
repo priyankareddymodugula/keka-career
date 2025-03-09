@@ -31,3 +31,36 @@ export function transformCandidateProfile(input: any): any {
     },
   };
 }
+
+export function transformCandidateData(input:any) {
+  return {
+      "Personal Details": {
+          "Name": input.personalDetails.Name,
+          "Email": input.personalDetails.Email,
+          "Mobile Phone": input.personalDetails.MobilePhone,
+          "Address": input.personalDetails.Address
+      },
+      "Professional Details": {
+          "Current Location": input.professionalDetails.CurrentLocation,
+          "Experience": input.professionalDetails.Experience,
+          "Current Role": input.professionalDetails.CurrentRole,
+          "Current CTC": input.professionalDetails.CurrentCTC,
+          "Current Company": input.professionalDetails.CurrentCompany,
+          "Current Industry": input.professionalDetails.CurrentIndustry,
+          "Education Details": input.professionalDetails.EducationDetails,
+          "Skills": input.professionalDetails.Skills.split(", ").map((skill:any) => skill.trim()), // Convert skills to an array
+          "Current Notice Period": input.professionalDetails.CurrentNoticePeriod,
+          "Social Media": input.professionalDetails.SocialMedia
+      },
+      "Job Preference": {
+          "Location": input.jobPreference.Location,
+          "Expected CTC": input.jobPreference.ExpectedCTC,
+          "Role": input.jobPreference.Role,
+          "Industry": input.jobPreference.Industry,
+          "Work Mode": input.jobPreference.WorkMode,
+          "Job Type": input.jobPreference.JobType
+      }
+  };
+}
+
+

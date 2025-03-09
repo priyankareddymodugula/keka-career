@@ -2,6 +2,8 @@ import { Component, type OnInit } from "@angular/core"
 import  { AuthService } from "../../../services/auth.service"
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
+import { transformCandidateData } from "../../../candidate-profile.utils"
+
 @Component({
   selector: "app-profile",
   template: `
@@ -278,7 +280,35 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.authService.currentUser$.subscribe((user) => {
       if (user) {
-        this.profile = { ...user };
+        this.candidate = { ...user };
+        this.profileForm = this.fb.group({
+          personalDetails: this.fb.group({
+            Name: new FormControl(this.candidate['Personal Details'].Name, Validators.required),
+            Email: new FormControl(this.candidate['Personal Details'].Email, [Validators.required, Validators.email]),
+            MobilePhone: new FormControl(this.candidate['Personal Details']['Mobile Phone']),
+            Address: new FormControl(this.candidate['Personal Details'].Address)
+          }),
+          professionalDetails: this.fb.group({
+            CurrentLocation: new FormControl(this.candidate['Professional Details']['Current Location']),
+            Experience: new FormControl(this.candidate['Professional Details'].Experience),
+            CurrentRole: new FormControl(this.candidate['Professional Details']['Current Role']),
+            CurrentCTC: new FormControl(this.candidate['Professional Details']['Current CTC']),
+            CurrentCompany: new FormControl(this.candidate['Professional Details']['Current Company']),
+            CurrentIndustry: new FormControl(this.candidate['Professional Details']['Current Industry']),
+            EducationDetails: new FormControl(this.candidate['Professional Details']['Education Details']),
+            Skills: new FormControl(this.candidate['Professional Details'].Skills.join(', ')),
+            CurrentNoticePeriod: new FormControl(this.candidate['Professional Details']['Current Notice Period']),
+            SocialMedia: new FormControl(this.candidate['Professional Details']['Social Media'])
+          }),
+          jobPreference: this.fb.group({
+            Location: new FormControl(this.candidate['Job Preference'].Location),
+            ExpectedCTC:new FormControl(this.candidate['Job Preference']['Expected CTC']),
+            Role: new FormControl(this.candidate['Job Preference'].Role),
+            Industry: new FormControl(this.candidate['Job Preference'].Industry),
+            WorkMode: new FormControl(this.candidate['Job Preference']['Work Mode']),
+            JobType: new FormControl(this.candidate['Job Preference']['Job Type'])
+          })
+        });
       }
     });
   }
@@ -327,6 +357,7 @@ export class ProfileComponent implements OnInit {
 
   saveProfile() {
     if (this.profileForm.valid) {
+      this.candidate = transformCandidateData(this.profileForm.value);
       alert('Profile saved successfully ')
       this.isEditing = false;
     } else {
