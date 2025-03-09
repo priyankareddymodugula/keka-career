@@ -3,6 +3,7 @@ import { CommonModule } from "@angular/common"
 import  { JobMatchService } from "../../../services/job-match.service"
 import  { AuthService } from "../../../services/auth.service"
 import { MatchScoreComponent } from "../../../components/match-score/match-score.component"
+import { RecruiterService } from "src/app/services/recruiter.service"
 
 @Component({
   selector: "app-opportunities",
@@ -29,7 +30,7 @@ import { MatchScoreComponent } from "../../../components/match-score/match-score
     <!-- Job List -->
     <ul role="list" class="divide-y divide-gray-200">
       <ng-container *ngFor="let job of matchedJobs">
-      <li  *ngIf="!job.applied" class="px-4 py-4 sm:px-6">
+      <li  *ngIf="!(job.applied || job.saved)" class="px-4 py-4 sm:px-6">
         <div class="flex items-center justify-between">
           <!-- Checkbox -->
           <div class="flex items-center">
@@ -69,14 +70,18 @@ import { MatchScoreComponent } from "../../../components/match-score/match-score
                 </p>
               </div>
             </div>
-        <div class="mt-4">
-          <button
-            (click)="applyForJob(job)"
-            class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary"
-          >
-            Apply
-          </button>
-        </div>
+
+            <div class="mt-4 flex space-x-3">
+                <button (click)="applyForJob(job)"  class="inline-flex items-center px-3 py-1.5 border border-transparent shadow-sm text-xs font-medium rounded-md text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                  Apply Now
+                </button>
+                <button (click)="saveJob(job)" class="border border-gray-300 px-3 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded-md hover:bg-gray-50 font-medium flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                  </svg>
+                  Save Job
+                </button>
+              </div>
       </li>
       </ng-container>
     </ul>
@@ -89,6 +94,7 @@ export class OpportunitiesComponent implements OnInit {
 
   constructor(
     private jobMatchService: JobMatchService,
+    private recrutierService: RecruiterService,
     private authService: AuthService,
   ) {}
 
@@ -97,7 +103,8 @@ export class OpportunitiesComponent implements OnInit {
       if (user) {
         this.jobMatchService.getMatchedJobs(user.id).subscribe(
           (jobs) => {
-            this.matchedJobs = jobs
+
+            this.matchedJobs = jobs.filter((job:any) => !(job.applied  && job.saved))
           },
           (error) => {
             console.error("Error fetching matched jobs:", error)
@@ -111,6 +118,13 @@ export class OpportunitiesComponent implements OnInit {
     console.log("Applying for job:", job);
     alert(`Applied to ${job.Name} jobs successfully!`);
     job.applied = true;
+    this.recrutierService.applyToTheJob(job);
+  }
+  saveJob(job: any) {
+    console.log("Saving job:", job);
+    alert(`Saved ${job.Name} jobs successfully!`);
+    job.saved = true;
+    this.recrutierService.saveTheJob(job)
   }
 
   // Apply to all selected jobs
@@ -124,6 +138,7 @@ export class OpportunitiesComponent implements OnInit {
     console.log("Applying to selected jobs:", selectedJobs);
     selectedJobs.forEach((job) => {
       job.applied = true; // Mark as applied
+      this.recrutierService.applyToTheJob(job);
     });
     alert(`Applied to ${selectedJobs.length} jobs successfully!`);
   }

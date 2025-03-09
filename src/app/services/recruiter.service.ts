@@ -67,9 +67,10 @@ export class RecruiterService {
     return of(this.mockJobs)
   }
 
-  getJobById(id: string): Observable<any> {
+  getJobById(id: string,score?:number): Observable<any> {
     // In a real app, this would call the API
-    const job = this.mockJobs.find((job:any) => job.id === id)
+    const job = this.mockJobs.find((job:any) => job.id === id);
+    if(score)    job.matchScore = score;
 
     return of(job)
   }
@@ -85,6 +86,33 @@ export class RecruiterService {
 
     this.mockJobs.push(newJob)
     return of(newJob)
+  }
+
+  applyToTheJob(job:any) {
+    let a = this.mockJobs.find((j:any) => j.id === job.id);
+    a.applied = true;
+  }
+
+  removeApply(job:any) {
+    let a = this.mockJobs.find((j:any) => j.id === job.id);
+    a.applied = false;
+  }
+  saveTheJob(job:any) {
+    let a = this.mockJobs.find((j:any) => j.id === job.id);
+    a.saved = true;
+  }
+  removeSave(job:any) {
+    let a = this.mockJobs.find((j:any) => j.id === job.id);
+    a.saved = false;
+  }
+
+
+  getAllTheSavedJobs() {
+    return this.mockJobs.filter((job:any) => job.saved)
+  }
+
+  getAllTheAppliedJobs() {
+    return this.mockJobs.filter((job:any) => job.applied)
   }
 
   updateJobStatus(jobId: string, status: string): Observable<any> {
@@ -119,7 +147,7 @@ export class RecruiterService {
 
           // Create an array of observables for each candidate detail request
           const candidateRequests = matches.map((match) =>
-            this.getCandidateById(match.id).pipe(
+            this.getCandidateById(match.id,match.matchPercentage).pipe(
               map((candidate) => ({
                 ...candidate,
                 matchScore: match.matchPercentage,
@@ -172,9 +200,10 @@ export class RecruiterService {
     return of({ success: true })
   }
 
-  getCandidateById(id: string): Observable<any> {
+  getCandidateById(id: string,score?:number): Observable<any> {
     // In a real app, this would call the API to fetch candidate details from JSON file
-    const candidate = this.mockCandidates.find((c:any) => c.id === id)
+    const candidate = this.mockCandidates.find((c:any) => c.id === id);
+    if(score) candidate.matchScore = score;
     return of(candidate)
   }
 

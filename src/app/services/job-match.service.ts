@@ -39,7 +39,7 @@ export class JobMatchService {
 
           // Create an array of observables for each job detail request
           const jobRequests = matches.map((match) =>
-            this.jobService.getJobById(match.id).pipe(
+            this.jobService.getJobById(match.id,match.matchPercentage).pipe(
               map((job) => ({
                 ...job,
                 matchScore: match.matchPercentage,

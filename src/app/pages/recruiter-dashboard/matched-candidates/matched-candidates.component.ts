@@ -105,7 +105,7 @@ export class MatchedCandidatesComponent implements OnInit {
   jobId = ""
   jobTitle = ""
   candidates: any[] = []
-  minMatchPercent = 80
+  minMatchPercent = 50
   maxCount = 10
 
   constructor(

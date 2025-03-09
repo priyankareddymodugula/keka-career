@@ -1,6 +1,8 @@
 export function transformCandidateProfile(input: any): any {
   return {
     id: input.candidateProfile.id,
+    resume: "resume.pdf",
+    avatar: "https://avatar.iran.liara.run/public/40",
     "Personal Details": {
       "Name": input.candidateProfile.name,
       "Email": "candidate0@example.com", // Default value, as it's not in the input
