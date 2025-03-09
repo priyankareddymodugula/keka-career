@@ -176,6 +176,7 @@ export class SearchPageComponent implements OnInit {
       this.jobs = data;
       this.totalPages = Math.ceil(this.jobs.length / this.itemsPerPage);
       this.currentPage = 1;
+      this.updatePagination();
     });
   }
 
@@ -184,6 +185,7 @@ export class SearchPageComponent implements OnInit {
       this.jobs = data;
       this.totalPages = Math.ceil(this.jobs.length / this.itemsPerPage);
       this.currentPage = 1;
+      this.updatePagination();
     });
   }
 
