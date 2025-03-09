@@ -13,13 +13,6 @@ import { AuthService } from '../../services/auth.service';
           </a>
         </div>
         <nav class="hidden md:flex items-center space-x-6">
-        <!-- <a
-            routerLink="/dashboard"
-            routerLinkActive="text-primary border-b-2 border-primary"
-            class="py-2 px-3 hover:text-gray-700"
-          >
-            Dashboard
-          </a> -->
           <a
             routerLink="/dashboard/profile"
             routerLinkActive="text-primary border-b-2 border-primary"
